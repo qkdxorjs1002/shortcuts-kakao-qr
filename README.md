@@ -1,6 +1,8 @@
 # shortcuts-kakao-qr
 ## 카카오 QR 체크인 단축어
 
+![KakaoTalk_20211011_021407936](https://user-images.githubusercontent.com/3241479/136706431-9467eacd-086e-46bc-a7ca-c74b32c5bd08.gif)
+
 ## 설명
 서버 없이 `단축어`, `Scriptable`의 스크립트 기반으로 작동하는 카카오 QR 체크인 단축어 입니다.
 
