@@ -38,12 +38,11 @@ d[k>>>24]^e[n>>>16&255]^j[g>>>8&255]^l[h&255]^c[p++],n=d[n>>>24]^e[g>>>16&255]^j
 // 
 // Shortcuts Parameters
 // 
-const arguments = args.plainTexts;
+const arguments = args.shortcutParameter;
 console.log("Args: ".concat(arguments));
 
-const userEmail = arguments[0];
-const userPw = arguments[1];
-
+const userEmail = arguments["email"];
+const userPw = arguments["pw"];
 
 // 
 // Requests
@@ -166,17 +165,6 @@ console.log("EncryptedPW: ".concat(encryptedPw));
 console.log("###AuthResp###");
 requestAuth.headers.Cookie = cookies;
 
-// requestAuth.body = {
-//    "os": "web",
-//    "webview_v": 2,
-//    "continue": "https://accounts.kakao.com/weblogin/account/info",
-//    "email": encryptedEmail,
-//    "password": encryptedPw,
-//    "third": "false",
-//    "k": "true",
-//    "authenticity_token": token
-// };
-
 requestAuth.body = 'os=' + encodeURIComponent("web") + '&webview_v=' + encodeURIComponent(2) + '&continue=' + encodeURIComponent("https://accounts.kakao.com/weblogin/account/info") + '&email=' + encodeURIComponent(encryptedEmail) + '&password=' + encodeURIComponent(encryptedPw) + '&third=' + encodeURIComponent(false) + '&k=' + encodeURIComponent(true) + '&authenticity_token=' + encodeURIComponent(token);
 
 let responseAuth = await requestAuth.loadJSON();
@@ -221,5 +209,5 @@ cookies = cookies.concat(requestTokenLogin.response["cookies"]);
 
 console.log(responseTokenLogin);
 
-Script.setShortcutOutput(responseTokenLogin);
+Script.setShortcutOutput(requestTokenLogin.response["statusCode"]);
 Script.complete();
