@@ -101,6 +101,17 @@ requestTokenLogin.headers = {
 };
 
 
+const qrCodeUrl = "https://vaccine-qr.kakao.com/api/v1/qr";
+
+let requestQRCode = new Request(qrCodeUrl);
+
+requestQRCode.method = "POST";
+requestQRCode.headers = {
+    "Content-Type": "application/json;charset=utf-8"
+};
+requestQRCode.body = "{\"epURL\":null}";
+
+
 // 
 // reCAPTCHA
 // 
@@ -207,7 +218,19 @@ requestTokenLogin.url = requestTokenLogin.url.concat(responseSSO["tokens"][0]["t
 let responseTokenLogin = await requestTokenLogin.load();
 cookies = cookies.concat(requestTokenLogin.response["cookies"]);
 
-console.log(responseTokenLogin);
+if (requestTokenLogin.response["statusCode"] != 200) {
+    console.error(requestTokenLogin.response["statusCode"]);
+    throw new Error(requestTokenLogin.response["statusCode"]);
+}
 
-Script.setShortcutOutput(requestTokenLogin.response["statusCode"]);
+
+// 
+// QRCode
+// 
+console.log("###QRCode###");
+requestQRCode.headers.Cookie = cookies;
+
+let responseQRCode = await requestQRCode.loadJSON();
+
+Script.setShortcutOutput(responseQRCode);
 Script.complete();
