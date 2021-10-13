@@ -202,6 +202,7 @@ console.log("###QRCode###");
 requestQRCode.headers.Cookie = cookies;
 
 let responseQRCode = await requestQRCode.loadJSON();
+responseQRCode["qrData"] = "003|".concat(responseQRCode["qrData"])
 
-Script.setShortcutOutput("003|".concat(responseQRCode));
+Script.setShortcutOutput(responseQRCode);
 Script.complete();
