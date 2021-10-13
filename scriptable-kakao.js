@@ -203,5 +203,5 @@ requestQRCode.headers.Cookie = cookies;
 
 let responseQRCode = await requestQRCode.loadJSON();
 
-Script.setShortcutOutput(responseQRCode);
+Script.setShortcutOutput("003|".concat(responseQRCode));
 Script.complete();
